@@ -1,0 +1,40 @@
+word = input('Введите слово: ')
+a = word.count('a')
+e = word.count('e')
+i = word.count('i')
+o = word.count('o')
+u = word.count('u')
+q = word.count('q')
+w = word.count('w')
+r = word.count('r')
+t = word.count('t')
+y = word.count('y')
+p = word.count('p')
+s = word.count('s')
+d = word.count('d')
+f = word.count('f')
+g = word.count('g')
+h = word.count('h')
+j = word.count('j')
+k = word.count('k')
+l = word.count('l')
+z = word.count('z')
+x = word.count('x')
+c = word.count('c')
+v = word.count('v')
+b = word.count('b')
+n = word.count('n')
+m = word.count('m')
+
+if a == 0:
+    print('a = False')
+if e == 0:
+    print('e = False')
+if i == 0:
+    print('i = False')
+if o == 0:
+    print('o = False')
+if u == 0:
+    print('u = False')
+
+print(f'Количество гласных: {a + e + i + o + u}\nКоличество согласных: {q + w + r + t + y + p + s + d + f + g + h + j + k + l + z + x + c + v + b + n + m}')
