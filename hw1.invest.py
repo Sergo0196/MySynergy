@@ -14,8 +14,3 @@ elif a < min_invest and b < min_invest:
         print(1)
     else:
         print(0)        
-elif a >= min_invest:
-    print('Mike')
-elif b >= min_invest:
-    print('Ivan')
-

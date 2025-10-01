@@ -5,7 +5,7 @@ while a <= b:
     b = int(input("Введите число b: "))
     for i in range(a, b + 1):
         if i % 2 == 0:
-            print(list(i, end=' '))
+            print(i, end=' ')
     print('\n')
 
     
