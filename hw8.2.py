@@ -1,6 +1,6 @@
 while True:
     n = int(input('Введите параметр массива: '))
-    if n < 1 or n > 100000:
+    if n < 1 and n > 100000:
         print('Введено недопустимое значене параметра массива')
         continue
     else: 
@@ -11,10 +11,7 @@ while True:
         else:
             a.insert(0, a.pop(-1))
             for i in a:
-                if i < 1 or i > 1000000000:
+                if i < 1 and i > 1000000000:
                     a.remove(i)
             print(a)
-            break
-                 
-        
-    
+            break  
