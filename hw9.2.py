@@ -1,0 +1,5 @@
+l1 = set(map(int, input("Значения первого списка: ").split()))
+l2 = set(map(int, input('Значения второго списка: '). split()))
+mod_lst = l1.intersection(l2)
+print(mod_lst)
+print(f'Число значений присутствующих в первой и второй строке: {len(mod_lst)}') 
