@@ -1,8 +1,4 @@
-import pprint
-n = int(input())
 val_s = {}
-for i in range(n):
-    val = int(input())
-    val_s[val] = {val ** val}
-    
-print(list(val_s))
+for i in range(10,-6, -1): # например от числа 10, до -5 (включительно)
+    val_s[i] = {i ** i}
+print(val_s)
