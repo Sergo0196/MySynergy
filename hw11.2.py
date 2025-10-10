@@ -60,7 +60,7 @@ def read():
         suffix = get_suffix(pet_age)
         pet_owner = pet_opt[pet_owner_key]
         print(
-            f'Это {pet_type} по кличке "{pet_name}". Возраст питомца: {pet_age}{suffix}. Имя владельца: {pet_owner}')  # ты уже, вроде использовал f-строку так что через неё, ей проще формировать)
+            f'Это {pet_type} по кличке "{pet_name}". Возраст питомца: {pet_age}{suffix}. Имя владельца: {pet_owner}') 
 
 def update():
     print('Выберите номер записи для изменения данных:')
