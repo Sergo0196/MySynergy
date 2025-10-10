@@ -1,109 +1,115 @@
 import collections
-# 
-# pets = {1: 
-#         {'Кличка питомца': None, "Характеристики": {"Вид питомца": None, "Возраст питомца": None, "Имя владельца": None
-#         }
-#     }
-# }
-pets = {}
-pets_opt = {"Характеристики": {"Вид питомца": "str", "Возраст питомца": 0, "Имя владельца": "str"}}
-pets_set = {'Кличка питомца': 'str', "Характеристики": pets_opt}
+
 years_mod = ""
-last = 0
+pet_type_key = "Вид питомца"
+pet_age_key = "Возраст питомца"
+pet_owner_key = "Имя владельца"
+pets = {1: {"Мухтар": {pet_type_key: "Собака", pet_age_key: 9, pet_owner_key: "Павел"}}}
+
+
+
 
 def create():
-    last = collections.deque(pets, maxlen=1)
-    print('Введите данные птомца для создания записи:')
-    name_pet = input('Введите кличку питомца: ')
-    type_pet = input('Введите вид питомца: ')
-    age_pet = int(input('Введите возраст питомца: '))
-    get_suffix(age_pet)
-    man_name = input('Введите имя владельца питомца: ')
-    pets_opt = {"Вид питомца": type_pet, "Возраст питомца": years_mod, "Имя владельца": man_name}
-    pets_set = {'Кличка питомца': name_pet, "Характеристики": pets_opt}
-    pets[last + 1] = pets_set
-    # if len(pets) == 0:
-    #     last = collections.deque(pets.keys(), maxlen=1)[0]
-    #     new_id = last + 1
-    # else:
-    #     new_id = 1
-    #     pets[new_id] = {"Кличка питомца": name_pet, "Вид питомца": type_pet, "Возраст питомца": age_pet, "Имя владельца": man_name}
+    last = collections.deque(pets, maxlen=1)[
+        0]  
 
-def get_suffix(age):
-    global years_mod
-    if age % 10 == 1 or age != 11:
-        years_mod = str(age) + 'год'
-    elif 11 <= age % 100 <= 14:
-        years_mod = str(age) + 'лет'
-    elif 2 <= age % 10 <= 4:
-        years_mod = str(age) + 'года'
-    else:
-        years_mod = str(age) + 'лет'
+    print('Введите данные птомца для создания записи:')
+    pet_name = input('Введите кличку питомца: ')
+    pet_type = input('Введите вид питомца: ')
+    pet_age = int(input('Введите возраст питомца: '))
+    pet_owner = input('Введите имя владельца питомца: ')
+
+    pet_opt = {pet_type_key: pet_type, pet_age_key: pet_age, pet_owner_key: pet_owner}
+    pet = {pet_name: pet_opt}
+    pets[last + 1] = pet
 
 def get_pet(ID):
-        if ID in pets.keys():
-            return pets[ID]
-        else:
-            print('Указанного номера записи не существует')
+    return pets[ID] if ID in pets.keys() else False  
+
+def get_suffix(age):
+    
+    if age % 10 == 1 and age != 11:
+        return ' год'
+    elif 11 <= age % 100 <= 14:
+        return ' лет'
+    elif 2 <= age % 10 <= 4:
+        return ' года' 
+    else:
+        return ' лет'
+    
 
 def pet_list():
     if len(pets) != 0:
-        for k in pets:
+        for k in pets.keys():  
             print(f'Карточка №{k}: {pets[k]}')
     else:
-        print('База пациентов пуста')
+        print('База питомцев пуста')
 
 def read():
     print('Библиотека записей:')
-    print(pets.keys())
-    id_p = int(input('Укажите номер записи, которую вы хотите просмотреть: '))
-    id_p = get_pet(ID=id_p)
-    print ("Это", pets[id_p]["Вид питомца"], 'по кличке', '"{}".'.format(pets[id_p]["Кличка питомца"]), 
-           'Возраст питомца:', pets[id_p]["Возраст питомца"], '. Имя владельца: ', pets[id_p]["Имя владельца"])
-    
+    print(list(pets.keys()))
+    target_pet_id = int(input('Укажите номер записи, которую вы хотите просмотреть: '))
+    pet = get_pet(target_pet_id)
+    if not pet:  
+        print(f'{target_pet_id} не существует в словаре с питомцами')
+    else:
+        pet_name = collections.deque(pet, maxlen=1)[0]  
+        pet_opt = pet[pet_name]  
+        pet_type = pet_opt[pet_type_key]
+        pet_age = pet_opt[pet_age_key]
+        suffix = get_suffix(pet_age)
+        pet_owner = pet_opt[pet_owner_key]
+        print(
+            f'Это {pet_type} по кличке "{pet_name}". Возраст питомца: {pet_age}{suffix}. Имя владельца: {pet_owner}')  # ты уже, вроде использовал f-строку так что через неё, ей проще формировать)
+
 def update():
     print('Выберите номер записи для изменения данных:')
     pet_list()
-    id_p = int(input('Введите номер записи для введения новых данных: '))
-    id_p = get_pet(ID=id_p)
-    if id_p in pets.keys():
-        par = input('Введите параметр, который вы хотите изменить (кличка/вид/возраст/имя владельца): ')
-        if par == 'кличка':
-            name_pet = input('Введите кличку питомца: ')
-            pets[id_p] = {'Кличка питомца': name_pet}
-        elif par == 'вид':
-            type_pet = input('Введите вид питомца: ')
-            pets[id_p]["Характеристики"] = {"Вид питомца": type_pet}
-        elif par == 'возраст':
-            age_pet = int(input('Введите возраст питомца: '))
-            get_suffix(age_pet)
-            pets[id_p]["Характеристики"] = {"Возраст питомца": years_mod}
-        elif par == 'имя владельца':
-            man_name = input('Введите имя владельца питомца: ')
-            pets[id_p]["Характеристики"] = {"Имя владельца": man_name}
-    else:
+    pet_id = int(input('Введите номер записи для введения новых данных: '))
+    pet = get_pet(pet_id)
+    if not pet:
         print('Указанного номера записи не существует')
+    else:
+        old_pet_name = collections.deque(pet, maxlen=1)[0]  
+        pet_opt = pet[old_pet_name]  
+        par = input('Введите параметр, который вы хотите изменить (кличка/вид/возраст/имя владельца): ')
+        if par.lower() == 'кличка':
+            new_pet_name = input('Введите кличку питомца: ')
+            pets[pet_id] = {new_pet_name: pet_opt}
+            del pet[old_pet_name]
+        elif par.lower() == 'вид':
+            pet_type = input('Введите вид питомца: ')
+            pet_opt[pet_type_key] = pet_type
+        elif par.lower() == 'возраст':
+            pet_age = int(input('Введите возраст питомца: '))
+            pet_opt[pet_age_key] = pet_age
+        elif par.lower() == 'имя владельца':
+            pet_owner = input('Введите имя владельца питомца: ')
+            pet_opt[pet_owner_key] = pet_owner
 
 def delete():
     print("Библиотека записей")
     pet_list()
-    id_p = int(input("Введите номер записи, которую хотите удалить: "))
-    id_p = get_pet(ID=id_p)
-    print(f'Пдтвердите удаление записи №{id_p}:')
+    pet_id = int(input("Введите номер записи, которую хотите удалить: "))
+    pet = get_pet(pet_id)
+    if not pet:
+        print('Такой записи не существует')
+        return
+    print(f'Пдтвердите удаление записи №{pet_id}:')
     qwest = input('Введите да или нет: ')
-    if qwest == 'да':
-        pets.pop(id_p)
-    elif qwest == 'нет':
+    if qwest.lower() == 'да':
+        del pets[pet_id]
+    elif qwest.lower() == 'нет':
         print("Операция удаления отменена")
     else:
         print("Некорректный ввод")
 
     if len(pets) == 0:
-        print('База клиники пуста, создайте запись') 
+        print('База клиники пуста, создайте запись')
 
 print("Введите команду для взаимодействия с базой данных \n" \
-"1 - Создание новой записи;\n2 - Вывод информации о пациенте;\n3 - Внесение изменений в карту пациента;\n" \
-"4 - Удаление карты пациента\n'stop'- Завершение работы с базой пациентов")
+      "1 - Создание новой записи;\n2 - Вывод информации о питомце;\n3 - Внесение изменений в карту питомца;\n" \
+      "4 - Удаление карты питомца\n'stop'- Завершение работы с базой питомцев")
 
 while True:
     command = input("Введите команду: ")
@@ -122,6 +128,3 @@ while True:
     elif command == 'stop':
         print('Работа с базой карт пациентов завершена')
         break
-
-
-     
