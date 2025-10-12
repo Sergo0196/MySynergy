@@ -1,7 +1,6 @@
 def fact(a=0):
-    a = input("Введите натуральное число: ")
-    if int(a) > 0 or a != float(a):
-        a = int(a)
+    a = int(input("Введите натуральное число: "))
+    if a > 0:
         ls = []
         if a == 1:
             return print('!1 = 1')
